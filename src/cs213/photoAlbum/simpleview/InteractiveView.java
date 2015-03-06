@@ -75,11 +75,8 @@ public class InteractiveView {
 				    }
 				}
 			}
-				
-			if(commandList == null || commandList.size() == 0) {
-				System.out.println("Error: invalid input");
-				continue;
-			}
+			
+			System.out.println("[TEST]: " + commandList.toString());
 						
 			switch(commandList.get(0)) {
 				case "createAlbum":
@@ -187,7 +184,7 @@ public class InteractiveView {
 			ArrayList<Photo> photoList = control.listPhotos(albumName);
 			
 			if(photoList == null) {
-				System.out.println("album does not exist for user" + control.getCurrentUserId());
+				System.out.println("Album " + albumName + " does not exist");
 				return;
 			}
 			
@@ -217,7 +214,7 @@ public class InteractiveView {
 				control.addPhoto(fileName, caption, albumName);
 			} catch (Exception e) {
 				if (e instanceof AlbumException) {
-					System.out.println("album does not exist for user " + control.getCurrentUserId() + ":\n" + albumName);
+					System.out.println("Album " + albumName + " does not exist");
 				} else if (e instanceof PhotoException) {
 					System.out.println("Photo " + fileName + " already exists in album " + albumName);
 				} else {
@@ -227,7 +224,8 @@ public class InteractiveView {
 			}
 			
 			System.out.println("Added photo " + fileName + ":");
-			System.out.println(control.getPhoto(fileName).getCaption() + " - Album: " + albumName);
+			caption = control.getPhoto(fileName).getCaption();
+			System.out.println(caption + " - Album: " + albumName);
 			
 		} else {
 			System.out.println("Error: invalid input (addPhoto takes in three arguments, \"<fileName>\" \"<caption>\" \"<albumName>\")");
@@ -251,7 +249,7 @@ public class InteractiveView {
 				control.movePhoto(fileName, oldAlbumName, newAlbumName);				
 			} catch (Exception e) {
 				if (e instanceof AlbumException) {
-					System.out.println("album " + oldAlbumName + " does not exist for user " + control.getCurrentUserId());
+					System.out.println("Album " + oldAlbumName + " does not exist");
 				} else if (e instanceof PhotoException) {
 					System.out.println("Photo " + fileName + " does not exist in " + oldAlbumName);
 				} else {
@@ -276,6 +274,14 @@ public class InteractiveView {
 			try {
 				fileName = getFullFileName(fileName);
 			} catch (Exception e) {
+				try { 
+					control.removePhoto(fileName, albumName);
+				} catch (Exception ex) {
+					if (ex instanceof AlbumException) {
+						System.out.println("Album " + albumName + " does not exist");
+					} 
+				}
+				
 				System.out.println("Photo " + fileName + " does not exist");
 				return;
 			}
@@ -284,7 +290,7 @@ public class InteractiveView {
 				control.removePhoto(fileName, albumName);
 			} catch (Exception e) {
 				if (e instanceof AlbumException) {
-					System.out.println("album " + albumName + " does not exist for user " + control.getCurrentUserId());
+					System.out.println("Album " + albumName + " does not exist");
 				} else {
 					System.out.println("Photo " + fileName + " is not in the album " + albumName);
 				}
@@ -382,6 +388,7 @@ public class InteractiveView {
 			for(int i = 1; i < albumList.size(); i++) {
 				System.out.print("," + albumList.get(i).getAlbumName());
 			}
+			System.out.println();
 			System.out.println("Date: " + photo.getFormattedDate());
 			System.out.println("Caption: " + photo.getCaption());
 			System.out.println("Tags:");
@@ -416,7 +423,7 @@ public class InteractiveView {
 					System.out.print("," + albumList.get(i).getAlbumName());
 				}
 				
-				System.out.print(" - Date: " + photo.getDate());
+				System.out.print(" - Date: " + photo.getFormattedDate());
 				System.out.println();
 			}
 			
@@ -431,15 +438,14 @@ public class InteractiveView {
 			List<Photo> photoList;
 			String [][] tagDetailsArray = new String[numTags][2];
 			for(int i = 1; i < numTags; i++) {
-				int pos = i-1;
 				String command = commandList.get(i);
 				if(command.indexOf(':') < 0) {
-					tagDetailsArray[pos][0] = null;	// tag type
-					tagDetailsArray[pos][1] = command.replaceAll("\"", "");	// tag detail
+					tagDetailsArray[i][0] = null;	// tag type
+					tagDetailsArray[i][1] = command.replaceAll("\"", "");	// tag detail
 				} else {
 					String[] typeAndDetail = command.split(":");
-					tagDetailsArray[pos][0] = typeAndDetail[0];	// tag type
-					tagDetailsArray[pos][1] = typeAndDetail[1].replaceAll("\"", "");	// tag detail
+					tagDetailsArray[i][0] = typeAndDetail[0];	// tag type
+					tagDetailsArray[i][1] = typeAndDetail[1].replaceAll("\"", "");	// tag detail
 				}
 			}
 			
@@ -452,7 +458,6 @@ public class InteractiveView {
 			}
 			
 			for(Photo photo : photoList) {
-				System.out.println("gotHere");
 				System.out.print(photo.getCaption() + " - Album: ");
 				
 				List<PhotoAlbum> albumList = photo.getPhotoAlbumList();
@@ -461,7 +466,7 @@ public class InteractiveView {
 					System.out.print("," + albumList.get(i).getAlbumName());
 				}
 				
-				System.out.print(" - Date: " + photo.getDate());
+				System.out.print(" - Date: " + photo.getFormattedDate());
 				System.out.println();
 			}
 			

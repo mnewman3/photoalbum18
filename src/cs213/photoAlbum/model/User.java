@@ -198,13 +198,17 @@ public class User implements Serializable {
 		}
 	}
 	
-	public LinkedList<Tag> getTagListByType(String tagType) {
+	public LinkedList<Tag> getTagListByValue(String tagValue) {
 		LinkedList<Tag> tagList = new LinkedList<Tag>();
-		HashMap<String, Tag> tagValueMap = tagMap.get(tagType);
-		if (tagValueMap == null)
-			return null;
-		for (Tag tag : tagValueMap.values()) {
-			tagList.add(tag);
+		for (HashMap<String, Tag> tagValueMap : tagMap.values()) {
+			// TODO null check on tagValueMap or no?
+			for (Tag tag : tagValueMap.values()) {
+				if (tag.getValue().equals(tagValue)) {
+					if (!tagList.contains(tag)) {
+						tagList.add(tag);
+					}
+				}
+			}
 		}
 		
 		return tagList;

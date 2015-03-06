@@ -33,8 +33,13 @@ public class Backend implements PhotoAlbumBackend {
 	 * @throws Exception
 	 */
 	public void readData() throws Exception {
-		String dir = System.getProperty("user.dir") + File.separator + "data" + File.separator + "userData";
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dir));
+		String dir = System.getProperty("user.dir") + File.separator + "data";
+		File file = new File(dir);
+		if (!file.isDirectory()) {
+			file.mkdir();
+		}
+		String path = System.getProperty("user.dir") + File.separator + "data" + File.separator + "userData";
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
 		userMap = (HashMap<String, User>) ois.readObject();
 		ois.close();
 	}
@@ -44,8 +49,8 @@ public class Backend implements PhotoAlbumBackend {
 	 * @throws Exception
 	 */
 	public void writeData() throws Exception {
-		String dir = System.getProperty("user.dir") + File.separator + "data" + File.separator + "userData";
-		File file = new File(dir);
+		String path = System.getProperty("user.dir") + File.separator + "data" + File.separator + "userData";
+		File file = new File(path);
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
 		oos.writeObject(userMap);
 		oos.close();

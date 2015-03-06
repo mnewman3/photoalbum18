@@ -111,7 +111,6 @@ public class Control implements PhotoAlbumControl {
 		
 		Photo photo = currentUser.getPhoto(fileName);
 		if (photo == null) {
-			// check if file exists. if it does continue, else error
 			File file = new File(fileName);
 			if (!file.isFile()) {
 				throw new Exception();
@@ -121,8 +120,7 @@ public class Control implements PhotoAlbumControl {
 			album.addPhoto(photo);
 			photo.addAlbum(album);
 		} else {
-			// photo already exists in album <albumname> error
-			throw new PhotoException();
+			album.addPhoto(photo);
 		}
 	}
 
@@ -189,14 +187,6 @@ public class Control implements PhotoAlbumControl {
 	public Photo getPhoto(String fileName) {
 		return currentUser.getPhoto(fileName);
 	}
-	
-	private String getFullFileName(String fileName) throws Exception {
-		File file = new File(fileName);
-		if (!file.isFile()) {
-			throw new PhotoException();
-		}
-		return file.getCanonicalPath();
-	}
 
 	@Override
 	public void addTag(String fileName, String tagType, String tagValue) throws Exception {
@@ -260,7 +250,7 @@ public class Control implements PhotoAlbumControl {
 			calendarEnd.setTime(endDate);
 			calendarEnd.set(Calendar.MILLISECOND, 0);
 		} catch (ParseException pe) {
-			pe.printStackTrace();
+			
 		}
 		
 		// do sanity checks on dates. If either is bad, return null
@@ -269,7 +259,7 @@ public class Control implements PhotoAlbumControl {
 		
 		for (Photo photo : currentUser.getPhotoList()) {
 			Calendar photoDate = photo.getDate();
-			if (photoDate.compareTo(calendarStart) > 0 && photoDate.compareTo(calendarEnd) < 0) {
+			if (photoDate.compareTo(calendarStart) >= 0 && photoDate.compareTo(calendarEnd) <= 0) {
 				if (!photoList.contains(photo)) {
 					photoList.add(photo);
 				}
@@ -291,12 +281,12 @@ public class Control implements PhotoAlbumControl {
 	@Override
 	public ArrayList<Photo> getPhotosByTag(String[][] tagDetailsArray) {
 		ArrayList<Photo> photoList = new ArrayList<Photo>();
-		for (int i = 0; i < tagDetailsArray.length; i++) {
+		for (int i = 1; i < tagDetailsArray.length; i++) {
 			String tagType = tagDetailsArray[i][0];
 			String tagValue = tagDetailsArray[i][1];
-			if (tagValue == null) {
-				LinkedList<Tag> tagList = currentUser.getTagListByType(tagType);
-				if (tagList == null) return null;
+			if (tagType == null) {
+				LinkedList<Tag> tagList = currentUser.getTagListByValue(tagValue);
+				if (tagList.size() == 0) return null;
 				for (Tag tag : tagList) {
 					for (Photo photo : tag.getPhotoList()) {
 						if (!photoList.contains(photo)) {

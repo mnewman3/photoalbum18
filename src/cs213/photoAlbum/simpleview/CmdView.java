@@ -19,7 +19,7 @@ public class CmdView {
 		// check valid input length
 		if(args.length < 1 || args.length > 3) {
 			// error
-			System.out.println("**Invalid input, please enter a valid command**");
+			System.out.println("Error: Invalid input, please enter a valid command");
 			return;
 		}
 		
@@ -51,7 +51,7 @@ public class CmdView {
 			
 			case "adduser":
 				if (userId.isEmpty() || userName.isEmpty()) {
-					System.out.println("**Invalid input, please specify both the desired user's id and the user's name**");
+					System.out.println("Error: Invalid input, please specify both the desired user's id and the user's name");
 				}
 				else {
 					try {
@@ -66,7 +66,7 @@ public class CmdView {
 				
 			case "deleteuser":
 				if (userId.isEmpty()) {
-					System.out.println("**Invalid input, please specify a user to delete**");
+					System.out.println("Error: Invalid input, please specify a user to delete");
 				}
 				else {
 					try {
@@ -81,7 +81,7 @@ public class CmdView {
 			
 			case "login":
 				if (userId.isEmpty()) {
-					System.out.println("**Invalid input, please specify a user to login**");
+					System.out.println("Error: Invalid input, please specify a user to login");
 				} 
 				else {
 					try {
@@ -98,18 +98,10 @@ public class CmdView {
 				break;
 			
 			default:
-				System.out.println("**Invalid input, please enter a valid command**");
+				System.out.println("Error: Invalid input, please enter a valid command");
 		}
 		
 		return;
 	}
-	
-//	/**
-//	 * Parses interactive mode input for syntactical correctness and calls the appropriate method from the Control.
-//	 * @throws Exception
-//	 */
-//	public static void interactiveMode() throws Exception {
-//		
-//	}
 
 }
