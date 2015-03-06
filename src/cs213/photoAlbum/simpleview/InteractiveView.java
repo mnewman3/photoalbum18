@@ -431,14 +431,15 @@ public class InteractiveView {
 			List<Photo> photoList;
 			String [][] tagDetailsArray = new String[numTags][2];
 			for(int i = 1; i < numTags; i++) {
+				int pos = i-1;
 				String command = commandList.get(i);
 				if(command.indexOf(':') < 0) {
-					tagDetailsArray[i][0] = null;	// tag type
-					tagDetailsArray[i][1] = command.replaceAll("\"", "");	// tag detail
+					tagDetailsArray[pos][0] = null;	// tag type
+					tagDetailsArray[pos][1] = command.replaceAll("\"", "");	// tag detail
 				} else {
 					String[] typeAndDetail = command.split(":");
-					tagDetailsArray[i][0] = typeAndDetail[0];	// tag type
-					tagDetailsArray[i][1] = typeAndDetail[1].replaceAll("\"", "");	// tag detail
+					tagDetailsArray[pos][0] = typeAndDetail[0];	// tag type
+					tagDetailsArray[pos][1] = typeAndDetail[1].replaceAll("\"", "");	// tag detail
 				}
 			}
 			
