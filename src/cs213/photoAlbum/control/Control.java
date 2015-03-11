@@ -25,8 +25,6 @@ public class Control implements PhotoAlbumControl {
 	
 	/**
 	 * Creates an instance of the control to process/manipulate user data.
-	 * @param backend
-	 * @param userId
 	 */
 	public Control() {
 		backend = new Backend();
@@ -204,7 +202,6 @@ public class Control implements PhotoAlbumControl {
 			currentUser.addTag(tag);
 			photo.addTag(tag);
 		} else {
-			// TODO try testing with == also
 			if (tag.equals(photo.getTag(tagType, tagValue))) {
 				throw new Exception();
 			} else {
@@ -237,11 +234,10 @@ public class Control implements PhotoAlbumControl {
 
 	@Override
 	public ArrayList<Photo> getPhotosByDate(String start, String end) {
-		// TODO Auto-generated method stub
 		
 		Calendar calendarStart = Calendar.getInstance();
 		Calendar calendarEnd = Calendar.getInstance();
-		DateFormat df = new SimpleDateFormat("MM/DD/YY-HH:MM:SS");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy-HH:mm:ss");
 		try {
 			Date startDate = df.parse(start);
 			Date endDate = df.parse(end);
@@ -249,12 +245,8 @@ public class Control implements PhotoAlbumControl {
 			calendarStart.set(Calendar.MILLISECOND, 0);
 			calendarEnd.setTime(endDate);
 			calendarEnd.set(Calendar.MILLISECOND, 0);
-		} catch (ParseException pe) {
-			
-		}
-		
-		// do sanity checks on dates. If either is bad, return null
-		
+		} catch (ParseException pe) { }
+				
 		ArrayList<Photo> photoList = new ArrayList<Photo>();
 		
 		for (Photo photo : currentUser.getPhotoList()) {
@@ -270,7 +262,6 @@ public class Control implements PhotoAlbumControl {
 			
 			@Override
 			public int compare(Photo lhs, Photo rhs) {
-				// TODO test to see if this works
 				return lhs.getDate().compareTo(rhs.getDate());
 			}
 		});
@@ -312,7 +303,6 @@ public class Control implements PhotoAlbumControl {
 			
 			@Override
 			public int compare(Photo lhs, Photo rhs) {
-				// TODO test to see if this works
 				return lhs.getDate().compareTo(rhs.getDate());
 			}
 		});
@@ -333,9 +323,7 @@ public class Control implements PhotoAlbumControl {
 		try {
 			backend.writeData();
 			System.exit(0);
-		} catch (Exception e) {
-			// problem
-		}
+		} catch (Exception e) {}
 	}
 	
 	

@@ -56,15 +56,15 @@ public class PhotoAlbum implements Serializable {
 	}
 	
 	/**
-	 * Deletes a photo with the given file name from the PhotoAlbum.
-	 * @param fileName
+	 * Deletes the given Photo from the PhotoAlbum.
+	 * @param photo
 	 */
 	public void deletePhoto(Photo photo) {
 		photoMap.remove(photo.getFileName());
 	}
 	
 	/**
-	 * @param photo
+	 * @param fileName
 	 * @return Returns a Photo from the PhotoAlbum if it exists, otherwise returns null.
 	 */
 	public Photo getPhoto(String fileName) {
@@ -98,12 +98,11 @@ public class PhotoAlbum implements Serializable {
 			
 			@Override
 			public int compare(Photo lhs, Photo rhs) {
-				// TODO test to see if this works
 				return lhs.getDate().compareTo(rhs.getDate());
 			}
 		});
 		
-		DateFormat df = new SimpleDateFormat("MM/DD/YY-HH:MM:SS");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy-HH:mm:ss");
 		String startDate = df.format(photoList.get(0).getDate().getTime());
 		
 		return startDate;
@@ -119,12 +118,11 @@ public class PhotoAlbum implements Serializable {
 			
 			@Override
 			public int compare(Photo lhs, Photo rhs) {
-				// TODO test to see if this works
 				return lhs.getDate().compareTo(rhs.getDate());
 			}
 		});
 		
-		DateFormat df = new SimpleDateFormat("MM/DD/YY-HH:MM:SS");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy-HH:mm:ss");
 		String endDate = df.format(photoList.get(photoList.size()-1).getDate().getTime());
 		
 		return endDate;
