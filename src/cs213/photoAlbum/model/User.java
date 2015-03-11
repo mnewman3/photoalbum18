@@ -198,10 +198,13 @@ public class User implements Serializable {
 		}
 	}
 	
+	/**
+	 * @param tagValue
+	 * @return Returns a list of Tags with the given tagValue.
+	 */
 	public LinkedList<Tag> getTagListByValue(String tagValue) {
 		LinkedList<Tag> tagList = new LinkedList<Tag>();
 		for (HashMap<String, Tag> tagValueMap : tagMap.values()) {
-			// TODO null check on tagValueMap or no?
 			for (Tag tag : tagValueMap.values()) {
 				if (tag.getValue().equals(tagValue)) {
 					if (!tagList.contains(tag)) {

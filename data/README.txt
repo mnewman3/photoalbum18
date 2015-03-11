@@ -1,0 +1,1 @@
+For testing, we did it all in Eclipse, and kept all files in the data directory. All user data is stored as a serialized object in a file called userData in the data folder. The current working directory is the PhotoAlbum18 folder, so files are accessed via ../data/fileName. If no data folder exists in the PhotoAlbum18 folder, one is created and data is stored there.

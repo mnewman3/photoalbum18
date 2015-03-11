@@ -16,6 +16,7 @@ public class InteractiveView {
 	
 	/**
 	 * Parses interactive mode input for syntactical correctness and calls the appropriate method from the Control.
+	 * @param control
 	 * @throws Exception
 	 */
 	public static void interactiveMode(Control control) throws Exception {
@@ -75,9 +76,7 @@ public class InteractiveView {
 				    }
 				}
 			}
-			
-			System.out.println("[TEST]: " + commandList.toString());
-						
+									
 			switch(commandList.get(0)) {
 				case "createAlbum":
 					createAlbum(control, commandList);

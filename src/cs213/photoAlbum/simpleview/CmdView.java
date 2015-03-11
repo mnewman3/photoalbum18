@@ -19,7 +19,7 @@ public class CmdView {
 		// check valid input length
 		if(args.length < 1 || args.length > 3) {
 			// error
-			System.out.println("Error: Invalid input, please enter a valid command");
+			System.out.println("**Invalid input, please enter a valid command**");
 			return;
 		}
 		
@@ -33,7 +33,6 @@ public class CmdView {
 				userName = args[2];
 		}
 		
-		// TODO find out if case sensitive
 		String command = args[0].toLowerCase().trim();
 		
 		switch(command) {
@@ -51,7 +50,7 @@ public class CmdView {
 			
 			case "adduser":
 				if (userId.isEmpty() || userName.isEmpty()) {
-					System.out.println("Error: Invalid input, please specify both the desired user's id and the user's name");
+					System.out.println("**Invalid input, please specify both the desired user's id and the user's name**");
 				}
 				else {
 					try {
@@ -66,7 +65,7 @@ public class CmdView {
 				
 			case "deleteuser":
 				if (userId.isEmpty()) {
-					System.out.println("Error: Invalid input, please specify a user to delete");
+					System.out.println("**Invalid input, please specify a user to delete**");
 				}
 				else {
 					try {
@@ -81,7 +80,7 @@ public class CmdView {
 			
 			case "login":
 				if (userId.isEmpty()) {
-					System.out.println("Error: Invalid input, please specify a user to login");
+					System.out.println("**Invalid input, please specify a user to login**");
 				} 
 				else {
 					try {
@@ -98,7 +97,7 @@ public class CmdView {
 				break;
 			
 			default:
-				System.out.println("Error: Invalid input, please enter a valid command");
+				System.out.println("**Invalid input, please enter a valid command**");
 		}
 		
 		return;
