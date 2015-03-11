@@ -29,7 +29,6 @@ public class Photo implements Serializable {
 	 * Creates a Photo with the given details.
 	 * @param fileName
 	 * @param caption
-	 * @param date
 	 */
 	public Photo(String fileName, String caption) {
 		this.fileName = fileName;
@@ -39,9 +38,7 @@ public class Photo implements Serializable {
 		
 		File file = new File(fileName);
 		calendar = Calendar.getInstance();
-		Date date = new Date();
-		date.setTime(file.lastModified());
-		calendar.setTime(date);
+		calendar.setTimeInMillis(file.lastModified());
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
 	
@@ -90,7 +87,7 @@ public class Photo implements Serializable {
 	 * @return Returns the date the Photo was taken as a formatted String.
 	 */
 	public String getFormattedDate() {
-		DateFormat df = new SimpleDateFormat("MM/DD/YY-HH:MM:SS");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy-HH:mm:ss");
 		String date = df.format(calendar.getTime());
 		return date;
 	}
@@ -115,9 +112,8 @@ public class Photo implements Serializable {
 	}
 	
 	/**
-	 * Deletes a Tag with the given tag details from the Photo.
-	 * @param tagType
-	 * @param tagValue
+	 * Deletes the given Tag from the Photo.
+	 * @param tag
 	 */
 	public void deleteTag(Tag tag) {
 		tagMap.get(tag.getType()).remove(tag.getValue());

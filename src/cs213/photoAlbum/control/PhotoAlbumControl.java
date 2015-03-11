@@ -44,13 +44,13 @@ public interface PhotoAlbumControl {
 	public void deleteAlbum(String albumName) throws Exception;
 	
 	/**
-	 * Prints album information of all albums for the current user.
+	 * @return Returns a list of PhotoAlbums for the current user.
 	 */
 	public LinkedList<PhotoAlbum> listAlbums();
 	
 	/**
-	 * Prints photo information of all photos in the given album.
 	 * @param albumName
+	 * @return Returns a list of Photos in the PhotoAlbum with the given album name.
 	 */
 	public ArrayList<Photo> listPhotos(String albumName);
 	
@@ -80,14 +80,16 @@ public interface PhotoAlbumControl {
 	/**
 	 * Adds a tag to the photo with the given file name.
 	 * @param fileName
-	 * @param tagDetails
+	 * @param tagType
+	 * @param tagValue
 	 */
 	public void addTag(String fileName, String tagType, String tagValue) throws Exception;
 	
 	/**
 	 * Deletes the tag with the given tag details from the photo with the given file name.
 	 * @param fileName
-	 * @param tagDetails
+	 * @param tagType
+	 * @param tagValue
 	 */
 	public void deleteTag(String fileName, String tagType, String tagValue) throws Exception;
 	
@@ -105,14 +107,14 @@ public interface PhotoAlbumControl {
 	public ArrayList<Photo> getPhotosByDate(String startDate, String endDate);
 	
 	/**
-	 *
 	 * @param tagDetailsArray
-	 * @return Returns an ArrayList<Photo> of all Photos with the given tags, sorted by date.
+	 * @return Returns a list of all Photos with the given tags, sorted by date.
 	 */
 	public ArrayList<Photo> getPhotosByTag(String[][] tagDetailsArray);
 	
 	/**
 	 * Sets the current User of the control.
+	 * @param userId
 	 */
 	public void login(String userId) throws Exception;
 	
