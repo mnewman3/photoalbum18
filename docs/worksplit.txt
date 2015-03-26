@@ -1,0 +1,8 @@
+Window to be implemented          Team member assigned
+------------------------          --------------------
+User Login                        Jason Davis
+Admin Account                     Jason Davis
+My Albums                         Jason Davis
+Search                            Jason Davis
+My Album Photos                   Michael Newman
+Photo View                        Michael Newman
