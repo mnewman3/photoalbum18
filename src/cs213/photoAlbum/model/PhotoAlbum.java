@@ -128,4 +128,8 @@ public class PhotoAlbum implements Serializable {
 		return endDate;
 	}
 	
+	public String toString() {
+		return albumName;
+	}
+	
 }

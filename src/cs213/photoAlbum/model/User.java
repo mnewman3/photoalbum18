@@ -109,6 +109,7 @@ public class User implements Serializable {
 			album.setAlbumName(newAlbumName);
 			photo.addAlbum(album);
 		}
+		album.setAlbumName(newAlbumName);
 		photoAlbumMap.remove(oldAlbumName);
 		photoAlbumMap.put(newAlbumName, album);
 	}
@@ -215,6 +216,10 @@ public class User implements Serializable {
 		}
 		
 		return tagList;
+	}
+	
+	public String toString() {
+		return userId;
 	}
 	
 }

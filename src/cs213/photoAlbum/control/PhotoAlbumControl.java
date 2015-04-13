@@ -27,6 +27,11 @@ public interface PhotoAlbumControl {
 	public void deleteUser(String userId) throws Exception;
 	
 	/**
+	 * @return Returns the User Id of the current user.
+	 */
+	public String getCurrentUserId();
+	
+	/**
 	 * @return Returns a list of current Users in the database.
 	 */
 	public LinkedList<User> listUsers();
@@ -42,6 +47,19 @@ public interface PhotoAlbumControl {
 	 * @param albumName
 	 */
 	public void deleteAlbum(String albumName) throws Exception;
+	
+	/**
+	 * @param albumName
+	 * @return Returns the album with the given album name for the current user.
+	 */
+	public PhotoAlbum getAlbum(String albumName);
+	
+	/**
+	 * Rename the album with the given album name for the current user.
+	 * @param currentAlbumName
+	 * @param newAlbumName
+	 */
+	public void renameAlbum(String currentAlbumName, String newAlbumName);
 	
 	/**
 	 * @return Returns a list of PhotoAlbums for the current user.

@@ -110,5 +110,9 @@ public class Tag implements Serializable {
 			return false;
 		}
 	}
+	
+	public String toString() {
+		return "[" + type + ", " + value + "]";
+	}
 
 }
