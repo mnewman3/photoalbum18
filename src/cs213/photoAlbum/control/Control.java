@@ -29,6 +29,13 @@ public class Control implements PhotoAlbumControl {
 	public Control() {
 		backend = new Backend();
 	}
+	
+	/**
+	 * @return Returns the Backend of the control.
+	 */
+	public Backend getBackend() {
+		return backend;
+	}
 
 	@Override
 	public void addUser(String userId, String userName) throws Exception {
@@ -55,6 +62,7 @@ public class Control implements PhotoAlbumControl {
 		return backend.getUserList();
 	}
 	
+	@Override
 	public String getCurrentUserId() {
 		return currentUser.getUserId();
 	}
@@ -78,6 +86,11 @@ public class Control implements PhotoAlbumControl {
 			currentUser.deleteAlbum(album);
 		}
 	}
+	
+	@Override
+	public void renameAlbum(String currentAlbumName, String newAlbumName) {
+		currentUser.renameAlbum(getAlbum(currentAlbumName), newAlbumName);
+	}
 
 	@Override
 	public LinkedList<PhotoAlbum> listAlbums() {
@@ -86,6 +99,11 @@ public class Control implements PhotoAlbumControl {
 			return null;
 		}
 		return albumList;
+	}
+	
+	@Override
+	public PhotoAlbum getAlbum(String albumName) {
+		return currentUser.getAlbum(albumName);
 	}
 
 	@Override
@@ -115,11 +133,9 @@ public class Control implements PhotoAlbumControl {
 			}
 			photo = new Photo(file.getCanonicalPath(), caption);
 			currentUser.addPhoto(photo);
+		}
 			album.addPhoto(photo);
 			photo.addAlbum(album);
-		} else {
-			album.addPhoto(photo);
-		}
 	}
 
 	@Override
@@ -139,6 +155,10 @@ public class Control implements PhotoAlbumControl {
 		Photo photo = oldAlbum.getPhoto(fileName);
 		if (photo == null) {
 			throw new PhotoException();
+		}
+		
+		if (newAlbum.getPhoto(fileName) != null) {
+			return;
 		}
 		
 		photo.deleteAlbum(oldAlbum);
@@ -246,7 +266,7 @@ public class Control implements PhotoAlbumControl {
 			calendarEnd.setTime(endDate);
 			calendarEnd.set(Calendar.MILLISECOND, 0);
 		} catch (ParseException pe) { }
-				
+						
 		ArrayList<Photo> photoList = new ArrayList<Photo>();
 		
 		for (Photo photo : currentUser.getPhotoList()) {

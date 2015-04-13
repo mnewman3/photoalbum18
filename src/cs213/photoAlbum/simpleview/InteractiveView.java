@@ -385,7 +385,7 @@ public class InteractiveView {
 			List<PhotoAlbum> albumList = photo.getPhotoAlbumList();
 			System.out.print(albumList.get(0).getAlbumName());
 			for(int i = 1; i < albumList.size(); i++) {
-				System.out.print("," + albumList.get(i).getAlbumName());
+				System.out.print(", " + albumList.get(i).getAlbumName());
 			}
 			System.out.println();
 			System.out.println("Date: " + photo.getFormattedDate());
