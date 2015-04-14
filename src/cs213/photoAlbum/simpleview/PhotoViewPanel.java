@@ -418,7 +418,14 @@ public class PhotoViewPanel extends javax.swing.JPanel {
     }
 
     private void btnAddTagOkActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        if(TagTypeField.getText().equals("") && TagValueField.getText().equals("")) {
+        	AddTagErrorLabel.setText("Error: Invalid tag");
+        	return;
+        }
+        if(TagValueField.getText().equals("")) {
+        	AddTagErrorLabel.setText("Error: Invalid tag");
+        	return;
+        }
         try {
             control.addTag(photo.getFileName(), TagTypeField.getText(), TagValueField.getText());
         } catch (Exception e) {
