@@ -89,7 +89,7 @@ public class AdminPanel extends javax.swing.JPanel {
         userIdLabel.setText("User ID:");
 
         usernameLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); 
-        usernameLabel.setText("Username:");
+        usernameLabel.setText("Name:");
 
         errorLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); 
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -212,8 +212,15 @@ public class AdminPanel extends javax.swing.JPanel {
                 		}
                 	}
             	} else {
-            		backend.deleteUser(userList.getSelectedValue());
-            		userListModel.remove(userList.getSelectedIndex());
+            		User user = userList.getSelectedValue();
+            		if (user != null) {
+	            		backend.deleteUser(user);
+	            		userListModel.remove(userList.getSelectedIndex());
+            		} else {
+            			errorLabel.setText("Please select a user to be deleted");
+            			errorLabel.setVisible(true);
+            			return;
+            		}
             		okButton.setVisible(false);
                     cancelButton.setVisible(false);
                     confirmText.setVisible(false);

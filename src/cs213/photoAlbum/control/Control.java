@@ -295,7 +295,7 @@ public class Control implements PhotoAlbumControl {
 		for (int i = 1; i < tagDetailsArray.length; i++) {
 			String tagType = tagDetailsArray[i][0];
 			String tagValue = tagDetailsArray[i][1];
-			if (tagType == null) {
+			if (tagType == null || tagType.equals("")) {
 				LinkedList<Tag> tagList = currentUser.getTagListByValue(tagValue);
 				if (tagList.size() == 0) return null;
 				for (Tag tag : tagList) {
